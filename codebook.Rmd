@@ -41,3 +41,27 @@ data <- rbind(cbind(subject_test, y_test, X_test),
  
 ```
 
+## 3.Uses descriptive activity names to name the activities in the data set
+
+```{r}
+ labels <- read.table("activity_labels.txt", stringsAsFactors=FALSE) 
+ datameds$label <- labels[datameds$label, 2] 
+
+#4.Appropriately labels the data set with descriptive variable names
+appronames <- c("subject", "label", feamesd$V2) 
+appronames <- tolower(gsub("[^[:alpha:]]", "", appronames)) 
+colnames(datameds) <- appronames 
+
+appronames 
+
+```
+## find the mean for each combination of subject and label 
+
+```{r}
+ ## step 5 
+ aggdata <- aggregate(datameds[, 3:ncol(datameds)], 
+                by=list(subject = datameds$subject,label = datameds$label),mean) 
+
+ summary(aggdata)
+```
+
